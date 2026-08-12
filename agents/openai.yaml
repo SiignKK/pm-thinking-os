@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Thinking OS"
+  short_description: "澄清业务需求、保存决策，并按需生成面向 AI 的 PRD 与测试文档"
+  default_prompt: "使用 $pm-thinking-os 澄清并记录产品需求；确认成熟后，按需生成配套 PRD 与测试文档。"
