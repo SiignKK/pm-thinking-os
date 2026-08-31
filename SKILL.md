@@ -97,13 +97,29 @@ when there is no pending request.
    [storage-protocol.md](references/storage-protocol.md). Summarize only
    genuinely relevant matches. State why each is similar, what is different,
    and whether it is evidence or merely a reminder.
-2. Before every next question in a New episode, render:
+2. Before every next question in a New episode, render this paired block:
 
    ```text
+   当前思考方向
+   - <one short sentence naming the current business decision or unknown being clarified>
+
    当前把握程度
    - 需求理解：<很低|低|中|高|很高> <初始|↑|→|↓> — <one short reason>
    - 决策充分：<很低|低|中|高|很高> <初始|↑|→|↓> — <one short reason>
    ```
+
+   Treat `当前思考方向` and `当前把握程度` as one required unit. Whenever a
+   New episode reply shows the confidence block, show the direction block
+   immediately before it, including when presenting the final Decision Card.
+   If a reply only explains the user's previous question and does not continue
+   the New episode or show confidence, render neither block.
+
+   Write the direction as exactly one short bullet sentence in everyday
+   language. Name the business decision or unknown currently being clarified,
+   keep it tied to the original business need, and update it as the inquiry
+   advances. Do not merely repeat the user's latest answer and do not expose
+   internal reasoning. Before output, self-check that the direction still
+   advances the original business need; if not, revise it.
 
    Treat the levels as one strict ordered scale: `很低 < 低 < 中 < 高 < 很高`.
    On the first display use `初始`. On every later display, compute each trend
@@ -115,9 +131,7 @@ when there is no pending request.
 
    Then ask exactly one highest-information-value question. That question must
    contain one information request; do not bundle subquestions or request
-   multiple independent facts in one sentence. If a reply only explains the
-   user's previous question and does not continue with a New episode question,
-   this block is not required.
+   multiple independent facts in one sentence.
 3. Convert feedback or symptoms into the decision that must be made. Do not
    jump directly to a feature or solution.
 4. Maintain a compact working classification: direct evidence, second-hand
@@ -133,9 +147,10 @@ when there is no pending request.
    calendar commitment. For an unscheduled requirement, use an event trigger
    and do not invent a date.
 8. Render the complete Decision Card from the schema. The final card must show
-   the latest confidence snapshot even when it asks no next question. Save only
-   after the user explicitly confirms it. Store each latest level and reason,
-   but never a trend or per-turn confidence history.
+   the paired direction and latest confidence snapshot even when it asks no next
+   question. Save only after the user explicitly confirms it. Store each latest
+   confidence level and reason, but never the direction, a trend, or per-turn
+   confidence history.
 9. Follow the create procedure in
    [storage-protocol.md](references/storage-protocol.md) to render the confirmed
    card directly as `<root>/需求/<requirement-name>/决策记录.md`. Do not create

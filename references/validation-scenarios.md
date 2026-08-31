@@ -38,6 +38,23 @@ locations.
 - A generated ID or path collision is retried and never overwrites.
 - The saved record contains no unexpanded placeholder token.
 
+## New-episode question framing
+
+- Every New episode reply that shows `当前把握程度` also shows
+  `当前思考方向` immediately before it.
+- `当前思考方向` contains exactly one short bullet sentence in everyday
+  language. It names the current business decision or unknown being clarified,
+  remains tied to the original requirement, and does not expose internal
+  reasoning.
+- The direction sentence is updated as the inquiry advances instead of merely
+  repeating the user's latest answer.
+- Before rendering, the direction is checked against the original business
+  need and corrected if it no longer advances that need.
+- If an explanation-only reply omits `当前把握程度`, it also omits
+  `当前思考方向`.
+- Requirement artifacts, Outcome review, History search, and Due reviews do
+  not gain this direction block.
+
 ## Search and due review
 
 - Search returns every direct record containing a synthetic matching ID, title,
