@@ -36,10 +36,11 @@ directory, or the PM OS source repository.
 Ignore ambient Git discovery overrides when resolving the project. Do not read
 secret-bearing environment variables. Do not modify the caller's environment.
 
-Store each confirmed requirement under
-`<root>/需求/<requirement-name>/`. Keep its Decision Episode, PRD, research,
-and later requirement-specific artifacts in that one direct child folder.
-Search history only under `<root>/需求`.
+Store each active or confirmed requirement under
+`<root>/需求/<requirement-name>/`. Keep its New-episode draft, Decision Episode,
+PRD, research, and later requirement-specific artifacts in that one direct
+child folder. Search history only in direct `决策记录.md` files under
+`<root>/需求`.
 
 Never run `git add`, `git commit`, or `git push`.
 
@@ -50,6 +51,8 @@ Before a new requirement or review:
 3. Read [storage-protocol.md](references/storage-protocol.md) before any search
    or write.
 4. Read [review-protocol.md](references/review-protocol.md) for `复盘：`.
+5. Read [draft-protocol.md](references/draft-protocol.md) before any New-episode
+   draft read or write.
 
 ## Route the request
 
@@ -63,10 +66,11 @@ Before a new requirement or review:
 If a PRD request arrives with a new or incomplete requirement, keep it as a
 pending explicit PRD request while running **New episode**. Before every next
 question below the gate, write `<95%，继续澄清` as a standalone line and
-create no artifact files. After the Decision Card is confirmed and readiness
-is `≥95%，可以生成`, run **Generate requirement artifacts** without asking
-the user to repeat the request. Confirmation alone never triggers artifacts
-when there is no pending request.
+create no `决策记录.md`, `PRD.md`, or `测试文档.md`; the New-episode draft is
+still maintained. After the Decision Card is confirmed and readiness is
+`≥95%，可以生成`, run **Generate requirement artifacts** without asking the
+user to repeat the request. Confirmation alone never triggers artifacts when
+there is no pending request.
 
 ## Generate requirement artifacts
 
@@ -86,7 +90,7 @@ when there is no pending request.
 6. If `决策记录.md` is missing, or the combined sources still leave a gate
    item unclear, write `<95%，继续澄清`, state the most important unclear
    point in everyday language, and ask exactly one simple question. Do not
-   create partial files.
+   create partial PRD or test files.
 7. At or above 95%, write both `PRD.md` and `测试文档.md` in the existing
    requirement folder. Refuse to overwrite either existing file unless the
    user explicitly approves updating that exact file. Report both paths.
@@ -97,7 +101,22 @@ when there is no pending request.
    [storage-protocol.md](references/storage-protocol.md). Summarize only
    genuinely relevant matches. State why each is similar, what is different,
    and whether it is evidence or merely a reminder.
-2. Before every next question in a New episode, render this paired block:
+2. As soon as the requirement input yields a readable temporary name, safely
+   resolve a new or resumable direct folder and `需求草稿.md` using
+   [draft-protocol.md](references/draft-protocol.md). Do not wait for the
+   Decision Card. At this stage never create `决策记录.md`, `PRD.md`, or
+   `测试文档.md`.
+3. Before every next question after a readable temporary name exists, run the
+   draft loop in this exact order: read the current draft if present (first
+   named turn has none); merge the current answer into in-memory state; compress
+   and safely create or write back only if state changed; then derive the next
+   highest-information-value question. The first named turn creates one
+   populated draft, never an empty draft followed by an update.
+   Direct user facts and lossless shorter paraphrases belong in `已明确`;
+   agent-added meaning, ambiguity, and inference belong in `待验证`. A later
+   correction replaces the old conclusion rather than preserving history.
+   Ordinary draft updates are silent and never add a confirmation question.
+4. Before every next question in a New episode, render this paired block:
 
    ```text
    当前思考方向
@@ -132,30 +151,35 @@ when there is no pending request.
    Then ask exactly one highest-information-value question. That question must
    contain one information request; do not bundle subquestions or request
    multiple independent facts in one sentence.
-3. Convert feedback or symptoms into the decision that must be made. Do not
+5. Convert feedback or symptoms into the decision that must be made. Do not
    jump directly to a feature or solution.
-4. Maintain a compact working classification: direct evidence, second-hand
+6. Maintain a compact working classification: direct evidence, second-hand
    report, assumption, unknown, and organizational constraint.
-5. Raise one material challenge by default. Stop when another challenge adds no
+7. Raise one material challenge by default. Stop when another challenge adds no
    new information.
-6. Check whether the result can be observed legally and practically. If not,
+8. Check whether the result can be observed legally and practically. If not,
    allow a `parked` decision record, set `learning_eligible` to `false`,
    and never call it a completed learning loop.
-7. Confirm Decision Owner, evidence, unknowns, real options, decision,
+9. Confirm Decision Owner, evidence, unknowns, real options, decision,
    assumptions, low-confidence prediction if needed, falsification signal, and
    review trigger. Add a review date only when the user has a meaningful
    calendar commitment. For an unscheduled requirement, use an event trigger
    and do not invent a date.
-8. Render the complete Decision Card from the schema. The final card must show
+10. Render the complete Decision Card from the schema. The final card must show
    the paired direction and latest confidence snapshot even when it asks no next
    question. Save only after the user explicitly confirms it. Store each latest
    confidence level and reason, but never the direction, a trend, or per-turn
    confidence history.
-9. Follow the create procedure in
+11. Follow the create procedure in
    [storage-protocol.md](references/storage-protocol.md) to render the confirmed
    card directly as `<root>/需求/<requirement-name>/决策记录.md`. Do not create
-   a temporary payload or run an installer. Save every later artifact for that
-   requirement in the same returned folder. Report the Episode ID and paths.
+   a temporary payload or run an installer. Only after creation and read-back
+   verification succeed, report the Episode ID, paths, and transition to the
+   formal record; retain the draft but stop automatically reading or writing
+   it. If creation fails before a formal file exists, do not claim a transition
+   and continue the draft loop. If a created file fails read-back verification,
+   report a content conflict and stop automatic operations until it is resolved.
+   Save every later artifact for that requirement in the same returned folder.
 
 Never silently convert “I cannot predict” into certainty. A weak baseline
 prediction is acceptable only when labeled low confidence with its limitations.

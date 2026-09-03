@@ -36,7 +36,16 @@ Ask the one question most likely to change the choice. Prefer source,
 frequency, scenario, impact, existing behavior data, or authority over cosmetic
 details.
 
-## 4. Judge confidence before the next question
+## 4. Maintain only the current requirement state
+
+During New episode, follow [draft-protocol.md](draft-protocol.md). Treat a
+user's direct statement, or a lossless shorter paraphrase that adds no meaning,
+as explicit state. Keep agent-added meaning, ambiguity, and inference awaiting
+verification until the user answers them through the normal one-question flow.
+When later evidence corrects an item, replace it; do not retain the rejected
+conclusion or conversation history in working state.
+
+## 5. Judge confidence before the next question
 
 In a New episode, judge these two dimensions independently from all current
 information before every next question. Improvement in one dimension must not
@@ -93,7 +102,7 @@ When the Decision Card is confirmed, store only the latest level and reason for
 each dimension, using `very_low`, `low`, `medium`, `high`, or `very_high`.
 Never store the trend or per-turn confidence history.
 
-## 5. Prepare for later documents
+## 6. Prepare for later documents
 
 Assume the user is an 不懂技术的业务人员. Use 日常语言 and 一次只问一件事.
 Across the conversation, learn who uses the feature, where the flow starts,
@@ -104,7 +113,7 @@ Prefer questions such as “谁会使用这个功能？” and “做完以后�
 Do not ask the user to explain technical implementation. Do not repeat facts
 already supported by their answers or reliable source material.
 
-## 6. Challenge once
+## 7. Challenge once
 
 Present the strongest material challenge, not a catalogue. Explicitly check
 selection bias. Example: measuring “cannot find support” only through support
@@ -113,7 +122,7 @@ complaints misses people who never reached support.
 Stop challenging when the risk is understood, no new information appears, or a
 small experiment is more informative.
 
-## 7. Check observability
+## 8. Check observability
 
 A learning-eligible Episode needs a legal and executable way to observe an
 outcome in a reasonable period. Record:
@@ -127,7 +136,7 @@ If no source exists, preserve the decision as `parked` with
 `learning_eligible=false`. Do not invent a survey, interview, log, or future
 integration that has no owner and date.
 
-## 8. Decide and confirm
+## 9. Decide and confirm
 
 Include a real alternative such as no action or a smaller experiment. Record
 accepted risks and unresolved disagreement. Present the full Decision Card and

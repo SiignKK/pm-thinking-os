@@ -38,6 +38,50 @@ locations.
 - A generated ID or path collision is retried and never overwrites.
 - The saved record contains no unexpanded placeholder token.
 
+## Requirement draft
+
+- From a non-Git temporary directory, New episode discovery fails, creates no
+  directory or file, and reports that the user must open or enter a Git
+  project.
+- Once the synthetic requirement has a readable temporary name, its first New
+  episode turn renders current state in memory and creates exactly one populated
+  `需求草稿.md` in one direct folder; it does not create an empty draft first and
+  still creates no `决策记录.md`, `PRD.md`, or `测试文档.md`.
+- On every later New episode turn, the existing draft is read before the new
+  answer is merged, compressed, written, or used to choose the next question.
+- When a reply changes no current requirement state, the draft remains
+  byte-for-byte unchanged and its modification time does not move.
+- A fact stated directly by the synthetic user, or a lossless shorter paraphrase
+  that adds no meaning, enters `已明确`. Agent-added meaning, ambiguities, and
+  inferences enter `待验证`, never `已明确`, until a later user answer verifies
+  them.
+- A later answer can correct a prior fact or inference. The rewritten draft
+  contains only the current conclusion and does not retain the rejected
+  conclusion, conversation text, reasoning, confidence history, or a change
+  log.
+- A draft beyond the approximately 800-Chinese-character soft limit is
+  rewritten, deduplicated, and merged rather than mechanically truncated. The
+  goal, users and scenario, effective requirements, boundaries, pivotal items
+  awaiting verification, and next decision all remain present. Irreducible
+  current state may exceed the soft target rather than lose required meaning.
+- Ordinary draft updates produce no user-facing draft status or confirmation
+  question. Only first creation, write failure, path/content conflict, and a
+  successful transition to the formal record are reported.
+- An existing folder or draft that cannot be proven to belong to the current
+  requirement is never overwritten or merged. The flow stops and reports the
+  collision or selects and reports a non-conflicting direct folder.
+- A direct folder containing only `需求草稿.md` is excluded from History search,
+  Outcome review, and Due reviews; it is not a Decision Episode or historical
+  evidence.
+- After the confirmed Decision Card is successfully created and read back as
+  `决策记录.md` in the same folder, the existing draft remains in place but New
+  episode no longer reads or writes it. The formal record is the authority.
+- If formal creation or read-back verification fails, the flow does not claim
+  a transition: the draft remains the current working state and later New
+  episode turns continue to read and maintain it when no formal file was
+  created. A created file that fails read-back is reported as a content conflict
+  and automatic operations stop rather than treating either file as verified.
+
 ## New-episode question framing
 
 - Every New episode reply that shows `当前把握程度` also shows
