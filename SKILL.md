@@ -1,6 +1,6 @@
 ---
 name: pm-thinking-os
-description: "Use when the user invokes $pm-thinking-os, starts with “新需求：”, asks to 过一遍需求, requests a PRD for a tracked requirement, starts “复盘：” for an existing decision, or asks to search prior PM decisions in the current Git project. Do not trigger for ordinary chat without requirement or decision-tracking intent."
+description: "Use when the user invokes $pm-thinking-os, starts with “新需求：”, asks to 过一遍需求, requests a PRD for a tracked requirement, starts “复盘：” for an existing decision, or asks to search prior PM decisions in the current project folder. Do not trigger for ordinary chat without requirement or decision-tracking intent."
 ---
 
 # PM Thinking OS
@@ -20,21 +20,16 @@ answers into precise AI-readable contracts without inventing missing rules.
 
 ## Locate the project
 
-Before New episode, Generate requirement artifacts, Outcome review, or History
-search, run the read-only command below from the current working directory:
-
-```text
-git rev-parse --show-toplevel
-```
-
-Use the single absolute path returned with exit code zero as `<root>`. Reject
-empty output, multiple output paths, a relative path, or a path that is not an
-existing directory. If resolution fails, stop and ask the user to open or enter
-the target Git project. Do not fall back to the Skill directory, a global Codex
-directory, or the PM OS source repository.
-
-Ignore ambient Git discovery overrides when resolving the project. Do not read
-secret-bearing environment variables. Do not modify the caller's environment.
+Before New episode, Generate requirement artifacts, Outcome review, History
+search, or Due reviews, resolve `<root>` as the existing project folder the user
+explicitly specified, or otherwise the unambiguous project folder currently
+open in the host/workspace. The folder need not be a Git repository. Resolve
+it to an absolute directory path and keep that same root throughout the
+requirement.
+If no single project folder can be established, ask only for its folder path and
+do not write anything until it is known. Never infer a root from the Skill's
+installation directory, another project, or an unrelated working directory.
+Do not run Git discovery or `git init` to resolve the project.
 
 Store each active or confirmed requirement under
 `<root>/需求/<requirement-name>/`. Keep its New-episode draft, Decision Episode,
@@ -42,7 +37,9 @@ PRD, research, and later requirement-specific artifacts in that one direct
 child folder. Search history only in direct `决策记录.md` files under
 `<root>/需求`.
 
-Never run `git add`, `git commit`, or `git push`.
+Create or edit only requirement artifacts beneath `<root>/需求`; do not modify
+existing project code. Never initialize, stage, commit, or push a project as
+part of normal Skill use.
 
 Before a new requirement or review:
 
@@ -230,9 +227,9 @@ when useful; do not invent a due date.
 
 For a repair or distribution check, read
 [validation-scenarios.md](references/validation-scenarios.md) and exercise only
-the relevant scenarios in a disposable temporary Git repository with synthetic
-input. Keep the source Skill read-only, make no network request, use no real
-credential or private data, and make no global or system change. Normal Skill
+the relevant scenarios in a disposable temporary folder without Git, using
+synthetic input. Keep the source Skill read-only, make no network request, use
+no real credential or private data, and make no global or system change. Normal Skill
 use does not run this validation entry.
 
 Do not write personal data, credentials, access tokens, customer identifiers,

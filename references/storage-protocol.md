@@ -6,23 +6,31 @@ network requests, and has no installer.
 
 ## Safety boundary
 
-- Resolve the current project only with read-only Git discovery from the user's
-  current working directory.
+- Use the user's explicitly specified project folder, or the unambiguous
+  project folder currently open in the host/workspace, as `<root>`.
 - Read and write only beneath the resolved `<root>/需求` tree.
 - Never inspect credential stores or secret-bearing environment variables.
 - Never use network access for storage, search, validation, or review.
-- Never modify the Skill directory, system directories, global Skill
-  directories, Git configuration, or Git history during normal use.
-- Never stage, commit, or push.
+- Never modify existing project code, the Skill directory, system directories,
+  global Skill directories, or files outside `<root>/需求` during normal use.
+- Never initialize, stage, commit, or push the project.
 - Treat every existing folder, draft, and record as user data. Refuse silent
   overwrite or merge.
 
 ## Resolve the project
 
-Run `git rev-parse --show-toplevel` from the current working directory without
-Git directory/work-tree overrides. Accept exactly one existing absolute
-directory. If the command fails or returns anything else, stop and ask the user
-to open or enter the target Git project.
+Prefer the project folder explicitly named by the user. Otherwise use the
+single project folder currently open in the host/workspace when its identity is
+clear. Do not treat an unrelated shell working directory, the Skill's
+installation directory, or another project as a fallback. A Git repository is
+not required. Do not use Git commands to locate the project or initialize one.
+
+Resolve the selected folder to one existing absolute directory and use it as
+`<root>` throughout this requirement. If the folder is missing, ambiguous, or
+cannot be determined, ask only for its folder path and make no write. Before
+each create or edit, verify the resolved destination is inside
+`<root>/需求` and that no path component redirects outside that tree; stop on a
+path conflict rather than writing elsewhere.
 
 Do not create `需求` merely to test whether a location is usable. Under an
 already resolved project, create it only for the first named New-episode draft

@@ -23,7 +23,7 @@ reasoning log, decision history, change log, or short PRD.
 
 ## Resolve or create the draft
 
-After resolving the Git project, keep an initial requirement in conversation
+After resolving the selected project folder, keep an initial requirement in conversation
 memory only until its input yields a readable temporary requirement name. Do
 not delay until Decision Card confirmation.
 

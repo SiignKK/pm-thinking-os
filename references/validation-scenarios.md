@@ -3,21 +3,25 @@
 These scenarios preserve the behavioral contract formerly exercised by bundled
 PowerShell tests. They are review cases for an isolated evaluator, not commands
 that normal Skill use should run. Use only synthetic text and a disposable
-temporary Git repository. Do not use network access, secrets, personal data,
+temporary folder without Git. Do not use network access, secrets, personal data,
 the real target project, the installed Skill directory, or global/system
 locations.
 
 ## Project boundary
 
-- From a deep child of a temporary Git repository, project discovery returns
-  exactly that repository root.
-- From a non-Git temporary directory, discovery fails and creates no
-  `需求` directory.
-- Ambient Git discovery overrides do not redirect the resolved project and are
-  not changed by the check.
-- Empty, relative, root-relative, or multiple-path discovery output is rejected.
-- All searches and writes remain beneath the resolved temporary
-  `<root>/需求` tree.
+- With an explicitly selected existing temporary folder that has no `.git`,
+  the folder itself is `<root>` and New episode can create
+  `<root>/需求/<requirement-name>/需求草稿.md`.
+- When the current opened project folder is unambiguous and no folder was
+  explicitly named, it is `<root>` even without Git.
+- When no project folder can be established, the Skill asks only for its
+  location and creates no directory or file.
+- An explicit project folder takes precedence over an unrelated current
+  directory; the Skill never substitutes its own installation directory.
+- A missing, non-directory, or ambiguous project location is rejected. No
+  `git init` or Git discovery command is run.
+- All writes remain beneath the selected `<root>/需求` tree; existing project
+  code and files outside that tree are not modified.
 
 ## Episode create
 
@@ -40,9 +44,9 @@ locations.
 
 ## Requirement draft
 
-- From a non-Git temporary directory, New episode discovery fails, creates no
-  directory or file, and reports that the user must open or enter a Git
-  project.
+- From a selected non-Git temporary folder, New episode can create a populated
+  draft and later a confirmed formal record in the same direct requirement
+  folder; History search finds the formal record without Git.
 - Once the synthetic requirement has a readable temporary name, its first New
   episode turn renders current state in memory and creates exactly one populated
   `需求草稿.md` in one direct folder; it does not create an empty draft first and
@@ -127,7 +131,7 @@ locations.
   requirement folder and every requirement maps to at least one test.
 - Existing artifact files are not overwritten without explicit approval for
   those exact files.
-- No artifact is written at repository root, beneath `pm-os-data`, or inside
+- No artifact is written at the project root, beneath `pm-os-data`, or inside
   the Skill directory.
 
 ## Packaging and installation
@@ -137,5 +141,5 @@ locations.
   variables.
 - The Skill does not create or alter global Skill entries; installation belongs
   to the host's standard workflow.
-- Validation never stages, commits, pushes, rewrites history, or modifies the
-  source Skill.
+- Validation never initializes Git, stages, commits, pushes, rewrites history,
+  or modifies the source Skill.
