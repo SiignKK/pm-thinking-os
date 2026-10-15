@@ -64,9 +64,18 @@ the file.
 
 ## Create
 
-1. Validate the confirmed card against
-   [episode-schema.md](episode-schema.md). If a required value is missing or
-   invalid, do not write anything.
+1. Require an explicit choice to generate the card and confirmation of its
+   displayed content; these are separate permissions. An unknown or skipped
+   card choice never enters formal creation. Retain the draft and continue the
+   task, with no Episode ID or replacement record. Recheck the applicable
+   **Formal Decision Card gate** in
+   [decision-protocol.md](decision-protocol.md) against the current requirement
+   state and confirmed scope, then validate the confirmed card against
+   [episode-schema.md](episode-schema.md). User confirmation and complete
+   template fields do not bypass unresolved gate conditions. If the gate fails,
+   return to one-question clarification without creating a formal file. If a
+   required value is missing or invalid, do not write anything. This check is
+   for new records, not a retroactive rejection of searchable legacy records.
 2. Generate an Episode ID in the documented format using current UTC time and
    a locally generated six-character hexadecimal suffix.
 3. Derive a readable requirement folder name from the title. Remove path

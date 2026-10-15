@@ -67,12 +67,21 @@ move the other unless its own evidence changed.
 |---|---|
 | 很低 | 没有可追溯依据，也不知道必须做出什么选择 |
 | 低 | 有一些现象或转述，但关键事实、负责人或影响仍不清楚 |
-| 中 | 证据有限，但方案、主要风险和负责人明确，可以作出可撤销或风险可控的决定 |
+| 中 | 证据有限，但方案、主要风险和负责人明确，可支持用户明确选择的范围有限、可撤销或风险可控的阶段性决定；不代表完整需求可以收尾 |
 | 高 | 证据、备选方案、风险、负责人和验证方法比较明确，当前决定有充分依据 |
 | 很高 | 有多种相互印证的证据，结果可以观察，主要假设能够被后续结果证明或推翻 |
 
 The strict level order is `很低 < 低 < 中 < 高 < 很高`. Use “很高” sparingly.
 需求理解 reaching “很高” does not imply that 决策充分 also reaches “很高”.
+
+Confidence describes readiness for the actual decision being discussed. During
+requirement design, future product performance need not have been measured to
+reach “高”: assess the evidence available now, real alternatives, accepted
+risks, owner, and executable validation plan. Future tests remain hypotheses,
+not proven outcomes. A test plan can resolve observability but cannot resolve
+missing business rules, option tradeoffs, or decision authority. Never raise a
+level just to unlock a card, and never use a displayed high level to bypass a
+substantive blocker.
 
 After each user reply, rejudge both levels from all current information rather
 than accumulating a mechanical score:
@@ -132,12 +141,116 @@ outcome in a reasonable period. Record:
 - expected result before the outcome;
 - known blind spots.
 
-If no source exists, preserve the decision as `parked` with
-`learning_eligible=false`. Do not invent a survey, interview, log, or future
-integration that has no owner and date.
+If no source exists, offer parking as a choice. Only after the user explicitly
+chooses it and its limited-decision gate passes, preserve the decision as
+`parked` with `learning_eligible=false`. Do not invent a survey, interview,
+log, or future integration that has no owner and date.
 
 ## 9. Decide and confirm
 
-Include a real alternative such as no action or a smaller experiment. Record
-accepted risks and unresolved disagreement. Present the full Decision Card and
-ask for explicit confirmation before saving.
+### Optional card choice
+
+Decision Cards are optional. When substantive business clarification is
+complete and the next step would be card preparation, explain its purpose in
+one or two plain-language sentences and ask exactly one choice question before
+rendering any card. For example:
+
+> 决策卡用来记录这次选择、理由、风险和复核条件，方便以后回顾。它是可选的，跳过也能继续整理需求或生成 PRD。
+>
+> 你需要生成决策卡吗？
+
+Use the paired direction/confidence block for this New-episode question. The
+offer is not the card itself: do not append a full card, ask another independent
+question, or assume consent in the same reply. Continue clarifying substantive
+business blockers before offering this step; card consent does not establish
+readiness.
+
+Track the current user choice as unknown, requested, or skipped, using the
+conversation and draft's explicit state. A direct request to generate a card
+counts as requested: briefly explain its purpose if not already explained,
+then apply the formal-card gate without asking the same choice again. Choosing
+generation does not confirm the card's content or authorize formal saving.
+
+If the user declines, acknowledge the skip briefly and bypass card generation,
+card confirmation, and creation of `决策记录.md`. Retain their choice as a
+short explicit fact under the draft's `边界与约束`, such as
+`决策卡：用户选择跳过，不生成决策记录。` Do not collect fields solely to fill
+the card schema, invent an Episode ID, or substitute a differently named card
+or formal record. Continue unresolved business clarification or a pending
+explicit document request. If nothing else was requested and the requirement
+is clear, finish with a brief status rather than automatically creating PRD or
+test documents or asking the card question again.
+
+Skipping does not declare missing business rules resolved and does not change
+the PRD generation gate. A skipped card leaves the draft as current requirement
+state, eligible as a PRD source under [artifact-protocol.md](artifact-protocol.md)
+but excluded from formal decision history. Preserve any existing formal record.
+Do not offer again in later turns or after context compression unless the user
+explicitly changes their choice; replace the stored choice rather than keeping
+a preference history.
+
+### Formal Decision Card gate
+
+A formal Decision Card is a complete proposal offered for confirmation and
+later saving as `决策记录.md`. Before presenting it, reread the current state
+and verify all conditions below for the user's actual requested scope:
+
+1. The problem, users, scenario, desired outcome, and scope are explicit. For
+   requirement design, the main flow, material business rules, permissions,
+   limits, important exceptions/failures, and acceptance results are clear.
+2. No unresolved business-rule or current option-choice question could
+   materially change that scope, a user action or result, content
+   retention/overwrite rules, permissions, failure behavior, acceptance result,
+   or chosen option. Such an item is a blocking unknown,
+   even when many other facts are known. Do not relabel it “implementation
+   detail”, “minor detail”, or an accepted risk without resolving the business
+   choice with the user.
+3. The user has explicitly identified the Decision Owner. Being the initiator,
+   product manager, first user, or test participant does not establish ownership.
+4. At least two real options and their important tradeoffs have been discussed,
+   and the user's selected option is explicit. An agent recommendation or
+   options first introduced inside the card are not a confirmed choice.
+5. Evidence and its limits, assumptions, accepted material risks, prediction,
+   falsification signal, and a practical review date/event are explicit. Future
+   effectiveness or engineering tests may remain non-blocking hypotheses when
+   their risk and validation/exit plan are understood and accepted. If their
+   uncertainty still changes whether to proceed, keep clarifying or let the
+   user choose a limited experiment instead.
+6. Rejudge confidence from those facts. For completing requirement design,
+   both 需求理解 and 决策充分 must be at least “高”; “很高” is not required.
+   Passing the level threshold alone never substitutes for conditions 1–5.
+
+**STOP — gate not passed:** keep the requirement in the draft stage. State the
+one most important unresolved point in everyday language, render the paired
+direction/confidence block, and ask exactly one highest-information-value
+question. Do not render a formal card, ask whether it can be saved, or imply
+the requirement is complete. “继续下一步”, a long conversation, confirmed
+function lists, and a future test plan are not completion instructions.
+
+If the user asks for an early summary, label it `阶段性汇总（需求未完成）`;
+it is not a formal card and does not invite formal saving. Do not independently
+replace the user's full requirement-design goal with “confirm first-version
+direction” to pass the gate.
+
+### Explicit limited or parked decisions
+
+Lower confidence can support a different, bounded decision only when the user
+explicitly chooses its scope and action: for example, run a small validation
+experiment, take no action, or park the requirement. Verify conditions 1–5
+within that limited scope; unresolved rules of the full feature must not affect
+the safety or meaning of the limited action. Do not infer this choice from
+“continue”, approval of a summary, or an agent's own suggestion.
+
+Label the card `阶段性决定` or `暂缓决定`, state that the original requirement
+remains incomplete, and preserve its blockers for later work. Keep confidence
+truthful rather than raising it; an unobservable parked decision remains
+`learning_eligible=false`. A limited record never authorizes a full-feature PRD
+or marks the original requirement design complete; its separate PRD gate still
+applies.
+
+After the user chooses generation and the applicable gate passes, present the
+complete card, retaining
+non-blocking unknowns and accepted risks, and ask for explicit confirmation.
+Recheck the gate before saving if the state or scope changed, or an earlier
+card was premature. Confirmation of a premature card does not supply its
+missing conditions; return to the one-question flow instead of saving it.

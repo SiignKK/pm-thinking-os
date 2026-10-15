@@ -86,6 +86,39 @@ locations.
   created. A created file that fails read-back is reported as a content conflict
   and automatic operations stop rather than treating either file as verified.
 
+## Formal-card readiness regression
+
+- Replay a requirement-design conversation for an offline meeting-transcription
+  app immediately after the user confirms future local testing with real audio
+  and says “继续下一步”. The preceding state still has 需求理解=`中`,
+  决策充分=`低`, unresolved source-text/translation update rules,
+  speaker-correction behavior, regeneration handling of manual edits, an
+  unconfirmed Decision Owner, and no user-selected overall option. The next
+  response continues clarification with the paired block and exactly one
+  question. It presents no formal card, no save-confirmation request, and
+  creates no formal record, PRD, or test document. The draft retains the blockers.
+- The same unresolved business rules still block the card if a preceding
+  response displayed “高” for both dimensions. A level label never replaces
+  substantive readiness.
+- A future-test plan resolves observability only. It does not silently convert
+  the tester into the Decision Owner or an agent recommendation into a chosen
+  option, and “continue” does not authorize requirement closure.
+- After material business rules, owner, real alternatives, selected option,
+  accepted risks, and validation/exit plan are clear, an unperformed future
+  effectiveness test alone does not prevent both levels reaching “高” or a
+  optional card offer. “很高” is not required. A full card appears only after
+  the user chooses generation, and no formal file is saved until the user
+  separately confirms its content.
+- A user-requested early summary stays labeled as an incomplete stage summary
+  and never invites formal saving. The agent does not independently narrow
+  complete requirement design into a first-version direction decision.
+- A user explicitly choosing a bounded experiment, no action, or parking can
+  receive a truthfully lower-confidence limited card when its own gate passes.
+  The card states its limited scope and the original requirement's unfinished
+  status; full-feature blockers are preserved and no full-feature PRD follows.
+- User confirmation of a previously premature card does not bypass the gate
+  on save. Legacy lower-confidence records remain searchable and reviewable.
+
 ## New-episode question framing
 
 - Every New episode reply that shows `当前把握程度` also shows
@@ -102,6 +135,30 @@ locations.
   `当前思考方向`.
 - Requirement artifacts, Outcome review, History search, and Due reviews do
   not gain this direction block.
+
+## Optional card and skipped-card documents
+
+- At a card-ready state with no prior choice, the next reply explains the
+  purpose in one or two plain-language sentences and asks only whether a card
+  is wanted. It includes the paired block and no full card or formal file.
+- A yes to that offer allows rendering only after the substantive gate passes;
+  it does not authorize saving. A direct explicit card request counts as yes,
+  without a repeated choice question. Content confirmation is still required.
+- A no records the current skip choice compactly in the draft, skips generation
+  and save confirmation, and creates no decision record or Episode ID. No
+  differently named replacement card is created. Without an explicit PRD
+  request, no PRD/test document is created either.
+- A skipped choice persists across later turns and context compression; the
+  Skill does not repeat the offer. An explicit change to requesting a card
+  replaces that state and uses the normal substantive gate.
+- A pending explicit PRD request continues after a skip. With complete business
+  rules, it creates PRD and test documents from the verified draft without a
+  formal record, accurately labels the absent Episode ID, and cites real source
+  files. With missing rules it asks one pivotal question and creates neither.
+- Card-only metadata is not collected merely to fill a declined card, while
+  unresolved permissions, scope, acceptance, or other business rules still
+  require clarification. Draft/PRD folders without a formal record remain
+  excluded from history, due checks, and formal outcome reviews.
 
 ## Search and due review
 

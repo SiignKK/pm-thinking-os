@@ -6,6 +6,16 @@ every rule observable and every reference unambiguous.
 
 ## Generation gate
 
+Decision Cards are optional. Prefer a verified `决策记录.md` as the source
+when it exists. When the user explicitly skipped the card and no formal record
+exists, use the verified requirement folder's complete `需求草稿.md`, reliable
+materials, and confirmed business answers instead. Do not require a card to
+generate PRD/test documents, manufacture a formal record or Episode ID, or
+offer the card again after a skip. A missing record without an explicit choice
+returns to the optional-card choice, not an assumed skip. Existing formal
+records are retained, and draft-based requirements remain outside decision
+history and outcome-review searches.
+
 Use exactly one readiness result: `<95%，继续澄清` or `≥95%，可以生成`.
 Do not invent a more precise percentage.
 In every user-facing generation decision, write the readiness result as a standalone line
@@ -23,14 +33,18 @@ could change the main flow or an expected test result:
 
 Below the gate, create no PRD or test file. State the one most important unclear
 point in everyday language and ask exactly one question. At or above the gate,
-generate both `PRD.md` and `测试文档.md` in the confirmed requirement folder and
+generate both `PRD.md` and `测试文档.md` in the verified requirement folder and
 report both paths.
 
 ## PRD contract
 
 Write these sections in order:
 
-1. Document information: version, source Episode ID/path, generation date.
+1. Document information: version, real source requirement file/path, generation
+   date. Include the source Episode ID/path only when a real formal record
+   exists; for the skipped-card path state `决策记录：未生成（用户跳过决策卡）`
+   and reference the draft path. Do not fabricate an ID or imply a draft is a
+   confirmed Decision Episode.
 2. Goal and observable success criteria.
 3. Actors and usage situations.
 4. In scope and out of scope.

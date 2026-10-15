@@ -15,6 +15,9 @@ reasoning log, decision history, change log, or short PRD.
   succeeds.
 - Keep `需求草稿.md` after that switch. Do not delete, rename, archive, or
   silently update it.
+- If the user skips the card, no authority switch occurs: keep the draft as
+  current requirement state, even when PRD/test documents are later generated.
+  Read the stored skip choice before deciding whether to offer a card again.
 - If formal creation fails before a file exists, report the failure and
   continue the draft loop.
 - If a created formal file fails complete read-back verification, do not switch
@@ -82,9 +85,23 @@ this order before asking the next question:
    result. If the file changed concurrently, the edit no longer applies, or
    read-back differs, stop rather than overwrite and report the conflict or
    failure.
-5. Compute confidence trends from the preceding and current levels, then choose
-   the single highest-information-value next question from the verified updated
-   state.
+5. Compute confidence trends from the preceding and current levels. Apply
+   **Optional card choice** in [decision-protocol.md](decision-protocol.md):
+   once business clarification is sufficient, explain and ask once if the
+   choice is unknown; if skipped, bypass the card and continue the actual task
+   or pending explicit PRD request. Preserve the current choice under
+   `边界与约束`, including after context compression. Before changing the next
+   action from a question to a requested formal Decision Card, check
+   the **Formal Decision Card gate** in
+   [decision-protocol.md](decision-protocol.md) against the verified updated
+   state. When blocked, keep the blockers in `待验证` and make `下一决策` the
+   most important unresolved business choice, not card confirmation. After a
+   skip, never make `下一决策` card confirmation unless the user changes their
+   choice. For remaining business clarification, ask the single
+   highest-information-value question. If no clarification remains, continue
+   the requested next task or end with a brief status instead of inventing a
+   question. Future validation plans do
+   not remove unresolved business rules from the draft.
 
 An ordinary successful update is silent. Do not announce it, ask whether to
 write it, or add a separate draft-confirmation question. User-facing draft
