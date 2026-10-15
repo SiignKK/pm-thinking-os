@@ -106,7 +106,9 @@ locations.
 - After material business rules, owner, real alternatives, selected option,
   accepted risks, and validation/exit plan are clear, an unperformed future
   effectiveness test alone does not prevent both levels reaching “高” or a
-  optional card offer. “很高” is not required. A full card appears only after
+  requested card offer. For requirement design with no card request, the
+  understood-flow readback/document offer is the next action instead of
+  automatic card preparation. “很高” is not required. A full card appears only after
   the user chooses generation, and no formal file is saved until the user
   separately confirms its content.
 - A user-requested early summary stays labeled as an incomplete stage summary
@@ -135,10 +137,59 @@ locations.
   `当前思考方向`.
 - Requirement artifacts, Outcome review, History search, and Due reviews do
   not gain this direction block.
+- One-question formatting is conditional on needing a question; a brief
+  waiting status does not invent one just to complete the paired block.
+
+## Main-flow progression and long-dialogue regression
+
+- From a feature name with no context, ask about the relevant business
+  background first. Once the problem, users and reason are understandable,
+  advance to current work/problem and intended feature flow rather than
+  exhausting background metrics. Reuse facts already supplied; do not restart
+  each stage or ask a business user for implementation techniques.
+- Replay the offline-transcription conversation after formal-card saving and
+  later confirmation of main-flow rules. Classify remaining gaps by affected
+  step/result. A genuine content-overwrite contradiction may need clarification,
+  but local status-label/export presentation or unrequested date conversion
+  does not by itself block a brief flow readback and PRD/test-document offer.
+  No PRD is created until the user accepts or already requested it.
+- Continue the replay after a pivotal answer is supplied. The agent rechecks
+  readiness and advances to delivery choice, rather than asking the next
+  adjacent local detail. Repeat over multiple turns; one successful reply is
+  not evidence that a long dialogue converges.
+- A saved card and two high confidence labels never override unresolved
+  main-flow rules. The earlier transcript with undefined translation updates,
+  speaker correction or manual-edit retention asks one pivotal question and
+  offers no final documents or formal completion. Inflated labels do not help.
+- Contrast an ongoing background result with an explicitly started new task:
+  the former must preserve manual edits when that rule is confirmed; the
+  latter may display a new version while retaining the old version if confirmed.
+  Do not repeatedly ask about a conflict that disappears when the triggers are
+  kept distinct. An actual same-trigger contradiction still requires a choice.
+- After a user declines documents and asks to continue, inspect the unknowns.
+  With no main-flow blocker, give a short waiting status without another
+  question, optional-card offer, PRD, test document or extension proposal. On a
+  later unchanged turn, retain the refusal and do not reoffer documents.
+- With a genuinely unresolved main-flow blocker after refusal, ask only that
+  blocking question; after its answer, stop if nothing pivotal remains. Retain
+  the refusal rather than restarting the document offer.
+- A user-led question about a local UI detail is answered normally. Do not
+  launch an unsolicited sequence of related feature questions afterward.
+- A yes to the explicit PRD/test offer becomes the pending request; do not
+  require the literal word “PRD” again. Preserve separate card choice and save
+  confirmation. An accepted request with complete rules and a skipped card
+  generates both files from the draft, without a decision record.
+- Reviewable suggestions stay visibly unconfirmed and outside mandatory
+  requirements/tests. A confirmed scope item is never demoted to an optional
+  suggestion to claim readiness; required tests have definite expected results.
+- After formal saving, subsequent confirmed answers and document choice can
+  be retained in safely verified follow-up state in the same folder, while
+  both the original formal record and frozen draft remain unchanged. A
+  follow-up-file collision or failed readback stops writes, not overwrites.
 
 ## Optional card and skipped-card documents
 
-- At a card-ready state with no prior choice, the next reply explains the
+- At a card-ready state with card recording selected and no prior choice, the next reply explains the
   purpose in one or two plain-language sentences and asks only whether a card
   is wanted. It includes the paired block and no full card or formal file.
 - A yes to that offer allows rendering only after the substantive gate passes;

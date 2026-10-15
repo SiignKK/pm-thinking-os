@@ -1,7 +1,10 @@
 # Decision protocol
 
 Use this protocol for a new requirement. Keep it conversational: one question
-per turn, not a visible questionnaire.
+per turn when needed, not a visible questionnaire or an endless question loop.
+For requirement design and its continuation after a formal record, also read
+[clarification-protocol.md](clarification-protocol.md); it selects whether to
+ask, offer documents, deliver, or wait.
 
 ## 1. Reframe the input
 
@@ -21,7 +24,8 @@ first, or observe.”
 
 ## 2. Ask for the decision
 
-Clarify:
+Understand the background and desired improvement first. Clarify the following
+only as needed for the current business choice or a requested Decision Card:
 
 - what choice must be made;
 - what outcome should change;
@@ -34,14 +38,20 @@ Do not assume the product manager is the Decision Owner.
 
 Ask the one question most likely to change the choice. Prefer source,
 frequency, scenario, impact, existing behavior data, or authority over cosmetic
-details.
+details. First identify a blocking unknown under
+[clarification-protocol.md](clarification-protocol.md). If there is none, move
+to flow readback/document choice or the requested output, rather than searching
+for a related detail to ask. Missing background metrics do not automatically
+block a clear personal-use requirement.
 
 ## 4. Maintain only the current requirement state
 
 During New episode, follow [draft-protocol.md](draft-protocol.md). Treat a
 user's direct statement, or a lossless shorter paraphrase that adds no meaning,
 as explicit state. Keep agent-added meaning, ambiguity, and inference awaiting
-verification until the user answers them through the normal one-question flow.
+verification. Only pivotal unknowns require the one-question flow; a local
+design suggestion can remain explicitly awaiting review without becoming a
+prerequisite question or a confirmed requirement.
 When later evidence corrects an item, replace it; do not retain the rejected
 conclusion or conversation history in working state.
 
@@ -121,6 +131,9 @@ how success is observed, and what existing behavior must not change.
 Prefer questions such as “谁会使用这个功能？” and “做完以后应该看到什么？”
 Do not ask the user to explain technical implementation. Do not repeat facts
 already supported by their answers or reliable source material.
+Use the progression protocol to distinguish main-flow blockers from reversible
+design details and new capabilities. A high confidence display does not itself
+end clarification, nor does an unasked local detail require another turn.
 
 ## 7. Challenge once
 
@@ -150,14 +163,20 @@ log, or future integration that has no owner and date.
 
 ### Optional card choice
 
-Decision Cards are optional. When substantive business clarification is
-complete and the next step would be card preparation, explain its purpose in
+Decision Cards are optional. When card recording is the selected next action,
+substantive business clarification is complete, and the next step would be
+card preparation, explain its purpose in
 one or two plain-language sentences and ask exactly one choice question before
 rendering any card. For example:
 
 > 决策卡用来记录这次选择、理由、风险和复核条件，方便以后回顾。它是可选的，跳过也能继续整理需求或生成 PRD。
 >
 > 你需要生成决策卡吗？
+
+For requirement-design conversations with no explicit card request, use the
+flow readback/document choice first. If the user requests PRD/test documents,
+the existing optional-card choice can then be resolved before generation.
+Declining all documents is not a reason to offer a card or collect its fields.
 
 Use the paired direction/confidence block for this New-episode question. The
 offer is not the card itself: do not append a full card, ask another independent
@@ -198,13 +217,14 @@ and verify all conditions below for the user's actual requested scope:
 1. The problem, users, scenario, desired outcome, and scope are explicit. For
    requirement design, the main flow, material business rules, permissions,
    limits, important exceptions/failures, and acceptance results are clear.
-2. No unresolved business-rule or current option-choice question could
-   materially change that scope, a user action or result, content
+2. No unresolved pivotal business-rule or current option-choice question could
+   materially change that agreed scope, a main-flow action or required result, content
    retention/overwrite rules, permissions, failure behavior, acceptance result,
    or chosen option. Such an item is a blocking unknown,
    even when many other facts are known. Do not relabel it “implementation
    detail”, “minor detail”, or an accepted risk without resolving the business
-   choice with the user.
+   choice with the user. Use the clarification protocol's materiality test;
+   local reviewable suggestions and unrequested extensions do not fail this gate.
 3. The user has explicitly identified the Decision Owner. Being the initiator,
    product manager, first user, or test participant does not establish ownership.
 4. At least two real options and their important tradeoffs have been discussed,

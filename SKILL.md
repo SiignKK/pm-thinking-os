@@ -7,11 +7,13 @@ description: "Use when the user invokes $pm-thinking-os, starts with “新需�
 
 Guide one real requirement at a time from an observed signal through business
 clarification and optional decision recording. Preserve uncertainty and the
-original decision context; do not optimize for producing an answer quickly.
+original decision context. Clarify what can change the agreed flow, then
+progress to useful delivery instead of exhausting every possible detail.
 
 ## Separate chat from artifacts
 
-- Chat assumes an 不懂技术的业务人员: use 日常语言 and 一次只问一件事.
+- Chat assumes an 不懂技术的业务人员: use 日常语言 and 一次只问一件事
+  when a question is needed, not a question on every turn.
 - Generated documents' 默认读者是 AI: use 固定结构, 稳定编号, explicit
   conditions, steps, results, evidence, and links between requirements/tests.
 
@@ -50,6 +52,8 @@ Before a new requirement or review:
 4. Read [review-protocol.md](references/review-protocol.md) for `复盘：`.
 5. Read [draft-protocol.md](references/draft-protocol.md) before any New-episode
    draft read or write.
+6. Read [clarification-protocol.md](references/clarification-protocol.md) for
+   requirement design, including continued design after a card is saved/skipped.
 
 ## Route the request
 
@@ -59,6 +63,14 @@ Before a new requirement or review:
 - For `复盘：<ID or title>`, run **Outcome review**.
 - For a request to find past decisions, run **History search**.
 - Otherwise do not take over the conversation.
+
+For requirement design, apply **Choose the next action** in
+[clarification-protocol.md](references/clarification-protocol.md) before asking
+another question or entering card preparation. Understand the background,
+current business/problem flow, intended feature flow, and pivotal details;
+reuse what is already clear. Once ready, briefly read back the flow and offer
+PRD/test documents. A yes to that explicit offer is a document request; a no
+does not require endless clarification or trigger an optional card offer.
 
 If a PRD request arrives with a new or incomplete requirement, keep it as a
 pending explicit PRD request while running **New episode**. Before every next
@@ -75,24 +87,31 @@ artifacts when there is no pending explicit request.
 1. Resolve the tracked requirement to its verified direct folder under
    `<root>/需求`. If it cannot be identified there, stop and ask the user to
    identify the requirement; never write artifacts to another folder.
-2. Read `决策记录.md` when a verified formal record exists. If the user
+2. Read `决策记录.md` and verified follow-up requirement materials/confirmed
+   later answers when a verified formal record exists. Never ignore a later
+   correction merely because the original record is immutable. If the user
    explicitly skipped the card and no formal record exists, instead read the
    complete `需求草稿.md` and reliable requirement materials in that folder,
    together with the user's confirmed business answers. A missing record alone
    does not mean the user skipped it. Preserve the real source path; never
    generate an Episode ID or a replacement decision record for PRD provenance.
 3. Read [artifact-protocol.md](references/artifact-protocol.md).
-4. Generate nothing unless the user explicitly asks for PRD output.
+4. Generate nothing unless the user explicitly asks for PRD output, including
+   a yes to an unambiguous PRD/test-document offer. Do not ask them to repeat it.
 5. Judge readiness as exactly `<95%，继续澄清` or `≥95%，可以生成` using
    actor/scenario, start-to-finish flow, normal results, permissions, limits,
    exceptions/failures, success evidence, and regression boundaries.
-6. If no formal record exists and the card choice is still unknown, resolve the
-   optional choice in **New episode**, rather than demanding a decision record.
-   If the combined sources leave a generation-gate item unclear, write
+6. Classify remaining unknowns using the clarification protocol. If the
+   combined sources leave a blocking generation-gate item unclear, write
    `<95%，继续澄清`, state the most important unclear point in everyday
    language, and ask exactly one simple question. A skipped card is not a
-   readiness failure; unresolved business rules still are. Create no partial
+   readiness failure; unresolved pivotal business rules still are. Local
+   reviewable suggestions are not mandatory questions. Create no partial
    PRD or test files.
+   Once pivotal business rules are clear, if no formal record exists and the
+   card choice is still unknown, resolve the optional choice in **New episode**
+   rather than demanding a decision record. Do not prepare a card before
+   business clarification merely because documents were requested.
 7. At or above 95%, write both `PRD.md` and `测试文档.md` in the existing
    requirement folder. Refuse to overwrite either existing file unless the
    user explicitly approves updating that exact file. Report both paths.
@@ -111,8 +130,9 @@ artifacts when there is no pending explicit request.
 3. Before every next question after a readable temporary name exists, run the
    draft loop in this exact order: read the current draft if present (first
    named turn has none); merge the current answer into in-memory state; compress
-   and safely create or write back only if state changed; then derive the next
-   highest-information-value question. The first named turn creates one
+   and safely create or write back only if state changed; then choose the next
+   action under the clarification protocol. Derive a question only if that
+   action needs one. The first named turn creates one
    populated draft, never an empty draft followed by an update.
    Direct user facts and lossless shorter paraphrases belong in `已明确`;
    agent-added meaning, ambiguity, and inference belong in `待验证`. A later
@@ -150,9 +170,11 @@ artifacts when there is no pending explicit request.
    judgment. Before output, self-check each dimension's level against its
    preceding level; if they disagree, correct the trend symbol.
 
-   Then ask exactly one highest-information-value question. That question must
-   contain one information request; do not bundle subquestions or request
-   multiple independent facts in one sentence.
+   When the chosen next action needs a question, ask exactly one
+   highest-information-value question. It must contain one information request;
+   do not bundle independent facts. When no blocking question remains, use the
+   flow readback/document offer, requested output, or brief waiting status
+   instead. Never invent a question to fill this format.
 5. Convert feedback or symptoms into the decision that must be made. Do not
    jump directly to a feature or solution.
 6. Maintain a compact working classification: direct evidence, second-hand
@@ -163,13 +185,16 @@ artifacts when there is no pending explicit request.
    offer parking as a choice; only an explicitly chosen `parked` decision can
    proceed under the limited-decision gate. Set `learning_eligible` to `false`,
    and never call it a completed learning loop.
-9. Before card-specific preparation, follow **Optional card choice** in
+9. Only when card recording is the chosen next action (not merely because the
+   main flow is ready), follow **Optional card choice** in
    [decision-protocol.md](references/decision-protocol.md): briefly explain its
    purpose and ask whether the user wants one, unless their choice is already
    explicit. Ask only after substantive business clarification, not as a way
    to close unresolved rules. If skipped, retain that choice in the draft,
    bypass steps 10–11, and continue the current task or pending explicit PRD
    request. Do not collect card-only metadata or keep offering a declined card.
+   For requirement design, offer documents under the clarification protocol
+   before card-only preparation unless the user already requested a card.
    If requested, confirm Decision Owner, evidence, unknowns, real options,
    decision, assumptions, prediction, falsification signal, and review trigger.
    Add a date only for a meaningful calendar commitment; otherwise use an event.

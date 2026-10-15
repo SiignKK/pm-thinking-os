@@ -1,6 +1,7 @@
 # Requirement artifact protocol
 
-Read this protocol only when the user explicitly requests PRD generation for a
+Read this protocol when the user explicitly requests PRD generation (including
+accepting an unambiguous PRD/test-document offer) for a
 tracked requirement. The documents are instructions for another AI, so make
 every rule observable and every reference unambiguous.
 
@@ -11,8 +12,9 @@ when it exists. When the user explicitly skipped the card and no formal record
 exists, use the verified requirement folder's complete `需求草稿.md`, reliable
 materials, and confirmed business answers instead. Do not require a card to
 generate PRD/test documents, manufacture a formal record or Episode ID, or
-offer the card again after a skip. A missing record without an explicit choice
-returns to the optional-card choice, not an assumed skip. Existing formal
+offer the card again after a skip. After pivotal business clarification, a
+missing record without an explicit choice returns to the optional-card choice,
+not an assumed skip. Existing formal
 records are retained, and draft-based requirements remain outside decision
 history and outcome-review searches.
 
@@ -21,8 +23,11 @@ Do not invent a more precise percentage.
 In every user-facing generation decision, write the readiness result as a standalone line
 before the one question or the two file paths.
 
-Use `≥95%，可以生成` only when all of these are clear and no remaining unknown
-could change the main flow or an expected test result:
+Use `≥95%，可以生成` only when all of these are clear for the agreed scope
+and no blocking business unknown could change its main flow, required behavior,
+or required test result. Apply the classification in
+[clarification-protocol.md](clarification-protocol.md), not a search for every
+conceivable interaction or optional test:
 
 - actor and usage situation;
 - start point, ordered actions, and end result;
@@ -31,8 +36,16 @@ could change the main flow or an expected test result:
 - limits, exceptions, and failure results;
 - observable success and existing behavior that must not regress.
 
-Below the gate, create no PRD or test file. State the one most important unclear
-point in everyday language and ask exactly one question. At or above the gate,
+Local reversible design suggestions may remain marked `设计建议，待评审` in
+non-blocking limitations, outside required `REQ-*` and `TC-*` behavior. Do not
+silently drop a user-confirmed feature, invent a business default, or label an
+unknown affecting a required result non-blocking to reach the gate. Future
+performance validation remains unexecuted; its accepted plan is not a result.
+
+Below the gate, create no PRD or test file. State the one most important
+blocking point and its concrete main-flow impact in everyday language and ask
+exactly one question. Reevaluate readiness after the answer, without adding
+adjacent optional questions. At or above the gate,
 generate both `PRD.md` and `测试文档.md` in the verified requirement folder and
 report both paths.
 

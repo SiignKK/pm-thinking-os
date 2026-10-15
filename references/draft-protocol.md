@@ -59,7 +59,7 @@ Before creating or resuming it:
 ## Per-turn state loop
 
 For every New-episode turn after a readable temporary name is available, use
-this order before asking the next question:
+this order before choosing the next user-facing action:
 
 1. Check for a formal record as described above. If none exists, read the
    complete current draft if it exists. Absence is expected only on the first
@@ -86,21 +86,25 @@ this order before asking the next question:
    read-back differs, stop rather than overwrite and report the conflict or
    failure.
 5. Compute confidence trends from the preceding and current levels. Apply
-   **Optional card choice** in [decision-protocol.md](decision-protocol.md):
-   once business clarification is sufficient, explain and ask once if the
-   choice is unknown; if skipped, bypass the card and continue the actual task
-   or pending explicit PRD request. Preserve the current choice under
-   `边界与约束`, including after context compression. Before changing the next
+   **Choose the next action** in
+   [clarification-protocol.md](clarification-protocol.md): ask only a pivotal
+   main-flow question, or read back the understood flow and offer documents,
+   honor an existing request, or wait if none is needed. Preserve the current
+   document choice compactly under `边界与约束`, including after context
+   compression. A refusal is not permission to invent questions or repeatedly
+   offer files. When card recording is selected, apply **Optional card choice**
+   in [decision-protocol.md](decision-protocol.md) and likewise preserve that
+   separate choice. Before changing the next
    action from a question to a requested formal Decision Card, check
    the **Formal Decision Card gate** in
    [decision-protocol.md](decision-protocol.md) against the verified updated
    state. When blocked, keep the blockers in `待验证` and make `下一决策` the
    most important unresolved business choice, not card confirmation. After a
    skip, never make `下一决策` card confirmation unless the user changes their
-   choice. For remaining business clarification, ask the single
-   highest-information-value question. If no clarification remains, continue
-   the requested next task or end with a brief status instead of inventing a
-   question. Future validation plans do
+   choice. Make `下一决策` the actual next action, not necessarily a question.
+   For a remaining blocking business choice, ask the single highest-impact
+   question. With none, offer documents only if that choice is unknown, honor
+   the requested next task, or end with a brief waiting status. Future validation plans do
    not remove unresolved business rules from the draft.
 
 An ordinary successful update is silent. Do not announce it, ask whether to
